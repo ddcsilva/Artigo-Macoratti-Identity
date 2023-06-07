@@ -63,10 +63,18 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string returnUrl)
     {
-        return View();
+        if (Url.IsLocalUrl(returnUrl))
+        {
+            return Redirect(returnUrl);
+        }
+        else
+        {
+            return RedirectToAction("index", "home");
+        }
     }
+
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
