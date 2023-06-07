@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FuncionariosWeb.Context;
 using FuncionariosWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FuncionariosWeb.Controllers
 {
+    [Authorize]
     public class FuncionariosController : Controller
     {
         private readonly AppDbContext _context;
@@ -25,6 +27,7 @@ namespace FuncionariosWeb.Controllers
               return View(await _context.Funcionarios.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Funcionarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
